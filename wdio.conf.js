@@ -7,7 +7,7 @@ if (process.env.SERVER === 'prod'){
 }
 
 exports.config = {
-    
+
     //
     // ==================
     // Specify Test Files
@@ -18,12 +18,12 @@ exports.config = {
     // directory is where your package.json resides, so `wdio` will be called from there.
     //
     specs: [
-        './tests/**/*.js'
+    './tests/**/*.js'
     ],
     // Patterns to exclude.
     exclude: [
         // 'path/to/excluded/files'
-    ],
+        ],
     //
     // ============
     // Capabilities
@@ -119,7 +119,7 @@ exports.config = {
     // Services take over a specific job you don't want to take care of. They enhance
     // your test setup with almost no effort. Unlike plugins, they don't add new
     // commands. Instead, they hook themselves up into the test process.
-     services: ['selenium-standalone'],
+    services: ['selenium-standalone'],
     // Framework you want to run your specs with.
     // The following are supported: Mocha, Jasmine, and Cucumber
     // see also: http://webdriver.io/guide/testrunner/frameworks.html
@@ -168,8 +168,10 @@ exports.config = {
      * @param {Array.<Object>} capabilities list of capabilities details
      * @param {Array.<String>} specs List of spec file paths that are to be run
      */
-    // before: function (capabilities, specs) {
-    // },
+     before: function (capabilities, specs) {
+        expect = require('chai').expect;
+        should = require('chai').should();
+    },
     /**
      * Runs before a WebdriverIO command gets executed.
      * @param {String} commandName hook command name
