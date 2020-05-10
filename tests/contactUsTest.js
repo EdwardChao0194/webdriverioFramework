@@ -1,25 +1,32 @@
+var request = require('sync-request');
+
 beforeEach(function() {
 	browser.url('/Contact-Us/contactus.html');
 });
 
 describe('Test Contact Us form WebdriverUni', function() {
+	var res = request('GET', 'http://jsonplaceholder.typicode.com/posts/1/comments');
+	var contactusDetails = JSON.parse(res.getBody().toString('utf8'));
+
 	beforeEach(function() {
 	console.log('Inside the describe block!');
 });
-	
-	it('Should be able to submit a successful submission via contact us form', function(done){ 
-		browser.setValue("[name='first_name']", 'Edward');
-		browser.setValue("[name='last_name']", 'Chao');
-		browser.setValue("[name='email']", 'Theo@mail.com');
-		browser.setValue("[name='message']", 'Theo is a dog.');
-		browser.click("[type='submit']");
 
-		var successfulContactConfirmation = browser.isExisting("#contact_reply h1");
-		expect(successfulContactConfirmation, 'Successful submission message does not exist').to.be.true;
+	contactusDetails.forEach(function (contactusDetail){
+		it('Should be able to submit a successful submission via contact us form', function(done){ 
+			browser.setValue("[name='first_name']", 'Edward');
+			browser.setValue("[name='last_name']", 'Chao');
+			browser.setValue("[name='email']", contactusDetail.email);
+			browser.setValue("[name='message']", contactusDetail.body);
+			browser.click("[type='submit']");
 
-		var successfulSubmission = browser.getText('#contact_reply h1');
-		expect(successfulSubmission).to.equal('Thank You for your Message!');
+			var successfulContactConfirmation = browser.isExisting("#contact_reply h1");
+			expect(successfulContactConfirmation, 'Successful submission message does not exist').to.be.true;
 
+			var successfulSubmission = browser.getText('#contact_reply h1');
+			expect(successfulSubmission).to.equal('Thank You for your Message!');
+
+		}); 
 	});
 
 	it('Should not be able to submit a successful submission via contact us form as all fields are required(no comment)', function(done){ 
