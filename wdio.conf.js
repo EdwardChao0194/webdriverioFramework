@@ -133,7 +133,7 @@ exports.config = {
     // Test reporter for stdout.
     // The only one supported by default is 'dot'
     // see also: http://webdriver.io/guide/reporters/dot.html
-    reporters: ['dot', 'junit','json'],
+    reporters: ['dot', 'junit','json','allure'],
     reporterOptions: {
         junit: {
             outputDir: './reports/junit-results/'
@@ -141,6 +141,12 @@ exports.config = {
         json: {
             outputDir: './reports/json-results/'
         },
+        allure: {
+            outputDir: './reports/allure-results/',
+            disableWebdriverStepsReporting: false,
+            disableWebdriverScreenshotsReporting: false,
+            useCucumberStepReporter: false
+        }
     },
     //
     // Options to be passed to Mocha.
@@ -171,8 +177,10 @@ exports.config = {
      * @param {Array.<Object>} capabilities list of capabilities details
      * @param {Array.<String>} specs List of spec file paths that are to be run
      */
-    // beforeSession: function (config, capabilities, specs) {
-    // },
+    beforeSession: function (config, capabilities, specs) {
+        const del = require('del');
+        del(['allure-report', 'errorShots', 'reports']);
+    },
     /**
      * Gets executed before test execution begins. At this point you can access to all global
      * variables like `browser`. It is the perfect place to define custom commands.
@@ -244,8 +252,10 @@ exports.config = {
      * @param {Array.<Object>} capabilities list of capabilities details
      * @param {Array.<String>} specs List of spec file paths that ran
      */
-    // after: function (result, capabilities, specs) {
-    // },
+    after: function (result, capabilities, specs) {
+        var name = 'ERROR-chrome-' + Date.now();
+        browser.saveScreenshot('./errorShots/' + name + '.png');
+    },
     /**
      * Gets executed right after terminating the webdriver session.
      * @param {Object} config wdio configuration object
