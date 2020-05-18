@@ -10,9 +10,11 @@
   "license": "ISC",
   "devDependencies": {
     "chai": "^4.2.0",
+    "del": "^5.1.0",
     "mocha": "^7.1.2",
     "selenium-standalone": "^6.15.3",
     "sync-request": "^6.1.0",
+    "wdio-allure-reporter": "^0.8.3",
     "wdio-json-reporter": "^0.4.0",
     "wdio-junit-reporter": "^0.4.4",
     "wdio-mocha-framework": "^0.6.4",
