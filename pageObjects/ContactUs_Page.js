@@ -4,7 +4,7 @@ class ContactUs_Page {
 	get comments(){ return $("[name='message']");}
 	get emailAddress(){ return $("[name='email']");}
 	get submitButton(){ return $("[type='submit']");}
-	get successfulSubmissionHeader() {return $("[#contact_reply h1");}
+	get successfulSubmissionHeader() {return $("#contact_reply h1");}
 	get unsuccessfulSubmissionHeader() {return $("body");}
 	get successfulSubmissionHeaderText() {
 		return this.successfulSubmissionHeader.getText(); //Thank You for your Message!
@@ -16,15 +16,19 @@ class ContactUs_Page {
 	setFirstName(firstName){
 		return this.firstName.setValue(firstName);
 	};
+	
 	setLastName(lastName){
 		return this.lastName.setValue(lastName);
 	};
+
 	setEmailAddress(emailAddress){
 		return this.emailAddress.setValue(emailAddress);
 	};
+
 	setComments(comments){
 		return this.comments.setValue(comments);
 	};
+
 	clickSubmitButton(){
 		return this.submitButton.click();
 	};
@@ -43,7 +47,6 @@ class ContactUs_Page {
 			this.comments.setValue(comments);
 		}
 		this.submitButton.click();
-		this.confirmSuccessfulSubmission();
 	}
 }
 
